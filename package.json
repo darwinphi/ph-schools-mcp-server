@@ -1,6 +1,6 @@
 {
   "name": "@darwinphi/ph-schools-mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP server for querying the Philippine schools dataset",
   "license": "ISC",
   "main": "src/server.js",

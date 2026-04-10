@@ -19,6 +19,68 @@ npm install
 npm start
 ```
 
+Use `npm start` only when running from this repo manually.
+
+## Which Setup to Use
+
+- VS Code MCP (`.vscode/mcp.json`): enough for normal usage. If status is `Running`, VS Code already started the server.
+- Claude Desktop (`claude_desktop_config.json`): enough for normal usage. Restart Claude after config changes.
+- `npx -y @darwinphi/ph-schools-mcp-server ...`: one-off CLI usage without cloning repo.
+- `npm install && npm start`: local development/maintenance in this repository.
+
+## Usage Scenarios
+
+1. `mcp.json` configured, no manual `npx`: works for chat tool calls (`dataset_stats`, `search_schools`, etc.).
+2. Manual `npx -y @darwinphi/ph-schools-mcp-server`, no MCP client config: server process starts, but chat clients won't use it automatically.
+3. `mcp.json` configured plus manual `npx` start: usually unnecessary; let the MCP client manage start/stop.
+4. One-off commands without MCP chat: use `npx ... --help` or `npx ... sync-data ...`.
+
+Without MCP client config, automatic VS Code/Claude tool-calling will not work.
+
+## When to Use `mcp.json`
+
+Use `mcp.json` for normal day-to-day MCP usage in VS Code (or equivalent client config in Claude Desktop).
+
+Use it for:
+
+1. Automatic server startup and lifecycle management by the MCP client
+2. MCP tool usage directly from chat prompts (`dataset_stats`, `search_schools`, etc.)
+3. Team/project-level shared MCP setup in a workspace
+
+If MCP status shows `Running`, the client already started the server; manual `npm start` or manual `npx` start is usually unnecessary.
+
+## When to Use `npx`
+
+Use `npx` from a terminal when you need one-off CLI actions without cloning or developing this repo.
+
+Use it for:
+
+1. Sanity check that the published package runs: `npx -y @darwinphi/ph-schools-mcp-server --help`
+2. Manual dataset download/update: `npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"`
+3. Manual debug startup outside client-managed MCP lifecycle: `npx -y @darwinphi/ph-schools-mcp-server`
+
+Do not use `npx` start as a replacement for VS Code/Claude MCP config. In normal usage, let the MCP client manage server startup from its config.
+
+## When to Use `npm install` and `npm start`
+
+Use these when working from this repository (developer/maintainer workflow), not for normal client usage.
+
+Use them for:
+
+1. Local development while editing source files in this repo
+2. Running tests before commits/releases
+3. Debugging local unpublished changes
+
+Typical local workflow:
+
+```bash
+npm install
+npm test
+npm start
+```
+
+If your VS Code/Claude MCP config is already working, you usually do not need to run `npm start` manually.
+
 ### CLI (published package)
 
 ```bash
@@ -26,6 +88,13 @@ npm start
 npx -y @darwinphi/ph-schools-mcp-server
 
 # Sync canonical dataset once to a chosen path
+npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
+```
+
+### Quick Verify
+
+```bash
+npx -y @darwinphi/ph-schools-mcp-server --help
 npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
 ```
 
@@ -84,6 +153,8 @@ Update Claude config:
   }
 }
 ```
+
+Alternative if `npx` is unreliable in your shell: install globally and use `"command": "ph-schools-mcp-server"`.
 
 If `PH_SCHOOLS_DATA_PATH` file is missing, the server automatically downloads from canonical source and writes to that path.
 
