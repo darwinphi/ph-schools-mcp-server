@@ -112,6 +112,15 @@ npm run test:package
 
 ## Publishing and Release Flow
 
+One-time npm setup (Trusted Publishing):
+
+1. On npmjs.com, open package `@darwinphi/ph-schools-mcp-server` → Settings → Trusted publishers.
+2. Add GitHub Actions trusted publisher with:
+   - Owner/User: `darwinphi`
+   - Repository: `ph-schools-mcp-server`
+   - Workflow filename: `release.yml`
+3. Do not use `NPM_TOKEN`; release workflow uses OIDC (`id-token: write`).
+
 Manual release flow (v1):
 
 1. Update pinned dataset tag in `src/constants.js`.
