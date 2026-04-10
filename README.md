@@ -191,8 +191,20 @@ One-time npm setup (Trusted Publishing):
 Manual release flow (v1):
 
 1. Update pinned dataset tag in `src/constants.js`.
-2. Update versions in `package.json` and `server.json`.
-3. Run:
+2. Bump package version:
+
+```bash
+npm version patch   # or minor / major
+```
+
+What `npm version patch` does:
+- Updates `package.json` version (e.g., `1.0.1` -> `1.0.2`)
+- Updates `package-lock.json` version fields
+- Creates a git commit
+- Creates a git tag (e.g., `v1.0.2`)
+
+3. Sync `server.json` version to match `package.json`.
+4. Run:
 
 ```bash
 npm ci
@@ -200,8 +212,27 @@ npm test
 npm run test:package
 ```
 
-4. Trigger GitHub Actions workflow `Release MCP Server` with matching `version` and `dataset_tag`.
-5. Workflow publishes npm package, then publishes MCP Registry metadata.
+5. Push commit and tags:
+
+```bash
+git push
+git push --tags
+```
+
+6. Create GitHub Release notes from the tag:
+
+```bash
+gh release create v<new_version> --generate-notes --title "v<new_version>"
+```
+
+Example:
+
+```bash
+gh release create v1.0.2 --generate-notes --title "v1.0.2"
+```
+
+7. Trigger GitHub Actions workflow `Release MCP Server` with matching `version` and `dataset_tag`.
+8. Workflow publishes npm package, then publishes MCP Registry metadata.
 
 For metadata-only updates, use workflow `Publish MCP Registry Metadata`.
 
