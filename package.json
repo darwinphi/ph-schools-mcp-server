@@ -1,0 +1,25 @@
+{
+  "name": "ph-schools-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for querying the Philippine schools dataset",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "check": "node --check src/server.js",
+    "check:sync": "node --check scripts/sync-data.mjs",
+    "sync-data": "node scripts/sync-data.mjs",
+    "test": "npm run check && npm run check:sync"
+  },
+  "keywords": [
+    "mcp",
+    "philippines",
+    "schools",
+    "dataset"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.3.6"
+  }
+}
