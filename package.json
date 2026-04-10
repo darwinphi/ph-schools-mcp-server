@@ -31,7 +31,7 @@
   "scripts": {
     "start": "node src/cli.js start",
     "sync-data": "node src/cli.js sync-data",
-    "check": "node --check src/cli.js && node --check src/server.js && node --check src/mcp-server.js && node --check src/store.js && node --check src/dataset.js && node --check src/sync.js && node --check src/constants.js && node --check scripts/sync-data.mjs && node --check scripts/check-pack.mjs && node --check scripts/verify-release.mjs && node --check test/run-tests.js && node --check test/store.test.js && node --check test/dataset-load.test.js && node --check test/sync.test.js && node --check test/mcp.integration.test.js",
+    "check": "node --check src/cli.js && node --check src/server.js && node --check src/mcp-server.js && node --check src/store.js && node --check src/dataset.js && node --check src/sync.js && node --check src/constants.js && node --check scripts/sync-data.mjs && node --check scripts/check-pack.mjs && node --check scripts/verify-release.mjs && node --check test/run-tests.js && node --check test/store.test.js && node --check test/dataset-load.test.js && node --check test/dataset-hybrid.test.js && node --check test/sync.test.js && node --check test/mcp.integration.test.js",
     "test": "npm run check && node test/run-tests.js",
     "test:unit": "npm run check && node test/run-tests.js --suite unit",
     "test:integration": "npm run check && node test/run-tests.js --suite integration",

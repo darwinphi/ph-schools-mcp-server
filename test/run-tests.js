@@ -4,6 +4,7 @@ const suites = {
   unit: [
     './store.test.js',
     './dataset-load.test.js',
+    './dataset-hybrid.test.js',
     './sync.test.js',
   ],
   integration: ['./mcp.integration.test.js'],

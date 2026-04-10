@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { PACKAGE_NAME, resolveDefaultDataPath } = require('./constants');
 const { createStore } = require('./store');
+const { syncDataset } = require('./sync');
 
 class DatasetLoadError extends Error {
   constructor(message, { code, hint } = {}) {
@@ -83,10 +84,40 @@ function loadStoreFromFile(filePath) {
   };
 }
 
+async function loadStoreForServer(options = {}) {
+  const resolvedPath = resolveDataPath(options.filePath);
+  const syncImpl = options.syncImpl || syncDataset;
+
+  try {
+    const result = loadStoreFromFile(resolvedPath);
+    return {
+      ...result,
+      source: 'local',
+    };
+  } catch (error) {
+    if (error instanceof DatasetLoadError && error.code === 'DATASET_NOT_FOUND') {
+      const syncResult = await syncImpl({
+        outputPath: resolvedPath,
+      });
+
+      const result = loadStoreFromFile(resolvedPath);
+
+      return {
+        ...result,
+        source: 'synced',
+        syncResult,
+      };
+    }
+
+    throw error;
+  }
+}
+
 module.exports = {
   DatasetLoadError,
   parseDataset,
   resolveDataPath,
   loadDatasetFromFile,
   loadStoreFromFile,
+  loadStoreForServer,
 };

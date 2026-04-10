@@ -1,9 +1,18 @@
-const { loadStoreFromFile, DatasetLoadError } = require('./dataset');
+const { loadStoreForServer, DatasetLoadError } = require('./dataset');
 const { createPhSchoolsMcpServer, connectServer } = require('./mcp-server');
 const packageJson = require('../package.json');
 
 async function startServer(options = {}) {
-  const { store } = loadStoreFromFile(options.dataPath);
+  const { store, dataPath, source, syncResult } = await loadStoreForServer({
+    filePath: options.dataPath,
+  });
+
+  if (source === 'synced') {
+    console.error(`[ph-schools] Local dataset missing. Synced from canonical source to: ${dataPath}`);
+    console.error(`[ph-schools] Source URL: ${syncResult.dataUrl}`);
+  } else {
+    console.error(`[ph-schools] Using local dataset: ${dataPath}`);
+  }
 
   if (store.duplicateBeisIds.length > 0) {
     console.error(

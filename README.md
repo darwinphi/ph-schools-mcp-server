@@ -16,7 +16,6 @@ Tools:
 
 ```bash
 npm install
-npm run sync-data
 npm start
 ```
 
@@ -32,25 +31,24 @@ npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.
 
 ## Dataset Configuration
 
-By default, sync uses pinned canonical tag `v1.0.0`:
+This server is hybrid by default:
+
+- If local dataset file exists, it uses that file immediately.
+- If local dataset file is missing, it auto-downloads from the canonical dataset URL and caches locally.
+
+Default canonical URL (pinned tag `v1.0.0`):
 
 `https://raw.githubusercontent.com/darwinphi/ph-schools-dataset/v1.0.0/schools_masterlist_2020_2021.json`
 
 Runtime env vars:
 
-- `PH_SCHOOLS_DATA_PATH`: local JSON file path used by MCP server
+- `PH_SCHOOLS_DATA_PATH`: preferred local JSON file path (used directly if present; auto-synced to this path if missing)
 - `PH_SCHOOLS_DATA_URL`: override download URL for `sync-data`
 - `PH_SCHOOLS_DATA_TAG`: canonical tag for `sync-data` when URL is not provided
 
 ## VS Code MCP Config (Copy/Paste)
 
-Run sync once first:
-
-```bash
-npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
-```
-
-Then set `.vscode/mcp.json`:
+Set `.vscode/mcp.json`:
 
 ```json
 {
@@ -67,15 +65,11 @@ Then set `.vscode/mcp.json`:
 }
 ```
 
+If `PH_SCHOOLS_DATA_PATH` file is missing, the server automatically downloads from canonical source and writes to that path.
+
 ## Claude Desktop Config (Copy/Paste)
 
-Run sync once first:
-
-```bash
-npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
-```
-
-Then update Claude config:
+Update Claude config:
 
 ```json
 {
@@ -90,6 +84,8 @@ Then update Claude config:
   }
 }
 ```
+
+If `PH_SCHOOLS_DATA_PATH` file is missing, the server automatically downloads from canonical source and writes to that path.
 
 Typical macOS config file:
 
