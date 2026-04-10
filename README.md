@@ -185,7 +185,7 @@ One-time npm setup (Trusted Publishing):
 2. Add GitHub Actions trusted publisher with:
    - Owner/User: `darwinphi`
    - Repository: `ph-schools-mcp-server`
-   - Workflow filename: `release.yml`
+   - Workflow filename: `cd.yml`
 3. Do not use `NPM_TOKEN`; release workflow uses OIDC (`id-token: write`).
 
 Manual release flow (v1):
@@ -231,7 +231,7 @@ Example:
 gh release create v1.0.2 --generate-notes --title "v1.0.2"
 ```
 
-7. Trigger GitHub Actions workflow `Release MCP Server` with matching `version` and `dataset_tag`.
+7. Push commit and tags. Tag pushes (`v*`) automatically trigger `CD Release` workflow.
 8. Workflow publishes npm package, then publishes MCP Registry metadata.
 
 For metadata-only updates, use workflow `Publish MCP Registry Metadata`.
