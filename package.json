@@ -1,23 +1,51 @@
 {
-  "name": "ph-schools-mcp-server",
+  "name": "@darwinphi/ph-schools-mcp-server",
   "version": "1.0.0",
   "description": "MCP server for querying the Philippine schools dataset",
+  "license": "ISC",
   "main": "src/server.js",
+  "bin": {
+    "ph-schools-mcp-server": "src/cli.js"
+  },
+  "files": [
+    "src",
+    "server.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darwinphi/ph-schools-mcp-server.git"
+  },
+  "homepage": "https://github.com/darwinphi/ph-schools-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/darwinphi/ph-schools-mcp-server/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "mcpName": "io.github.darwinphi/ph-schools",
   "scripts": {
-    "start": "node src/server.js",
-    "check": "node --check src/server.js",
-    "check:sync": "node --check scripts/sync-data.mjs",
-    "sync-data": "node scripts/sync-data.mjs",
-    "test": "npm run check && npm run check:sync"
+    "start": "node src/cli.js start",
+    "sync-data": "node src/cli.js sync-data",
+    "check": "node --check src/cli.js && node --check src/server.js && node --check src/mcp-server.js && node --check src/store.js && node --check src/dataset.js && node --check src/sync.js && node --check src/constants.js && node --check scripts/sync-data.mjs && node --check scripts/check-pack.mjs && node --check scripts/verify-release.mjs && node --check test/run-tests.js && node --check test/store.test.js && node --check test/dataset-load.test.js && node --check test/sync.test.js && node --check test/mcp.integration.test.js",
+    "test": "npm run check && node test/run-tests.js",
+    "test:unit": "npm run check && node test/run-tests.js --suite unit",
+    "test:integration": "npm run check && node test/run-tests.js --suite integration",
+    "test:package": "node scripts/check-pack.mjs",
+    "release:verify": "node scripts/verify-release.mjs"
   },
   "keywords": [
     "mcp",
+    "model-context-protocol",
     "philippines",
     "schools",
     "dataset"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "darwinphi",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^4.3.6"

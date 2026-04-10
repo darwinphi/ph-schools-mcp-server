@@ -1,0 +1,62 @@
+[
+  {
+    "Region": "Region I",
+    "Division": "Ilocos Norte",
+    "District": "Bacarra I",
+    "BEIS School ID": "100001",
+    "School Name": "Apaleng-Libtong ES",
+    "Street Address": "Brgy. 21, Libtong, Bacarra, Ilocos Norte",
+    "Municipality": "BACARRA",
+    "Legislative District": "1st District",
+    "Barangay": "LIBTONG",
+    "Sector": "Public",
+    "Urban/Ru": "Partially Urban",
+    "Sacl hColaosls Sifuicbactliaosnsification": "DepED Managed",
+    "Modified Curricural Offering Classification": "Purely ES"
+  },
+  {
+    "Region": "Region I",
+    "Division": "Ilocos Norte",
+    "District": "Bacarra I",
+    "BEIS School ID": "100002",
+    "School Name": "Bacarra National High School",
+    "Street Address": "Santa Rita",
+    "Municipality": "BACARRA",
+    "Legislative District": "1st District",
+    "Barangay": "SANTA RITA (POB.)",
+    "Sector": "Public",
+    "Urban/Ru": "Partially Urban",
+    "Sacl hColaosls Sifuicbactliaosnsification": "DepED Managed",
+    "Modified Curricural Offering Classification": "JHS and SHS"
+  },
+  {
+    "Region": "Region III",
+    "Division": "Bulacan",
+    "District": "Meycauayan",
+    "BEIS School ID": "200001",
+    "School Name": "Saint Mary College",
+    "Street Address": "Meycauayan, Bulacan",
+    "Municipality": "MEYCAUAYAN",
+    "Legislative District": "4th District",
+    "Barangay": "SALUYSOY",
+    "Sector": "Private",
+    "Urban/Ru": "Urban",
+    "Sacl hColaosls Sifuicbactliaosnsification": "Private School",
+    "Modified Curricural Offering Classification": "Complete JHS"
+  },
+  {
+    "Region": "Region III",
+    "Division": "Bulacan",
+    "District": "Meycauayan",
+    "BEIS School ID": "100002",
+    "School Name": "Bacarra NHS Duplicate",
+    "Street Address": "Duplicate Row",
+    "Municipality": "MEYCAUAYAN",
+    "Legislative District": "4th District",
+    "Barangay": "SALUYSOY",
+    "Sector": "Public",
+    "Urban/Ru": "Urban",
+    "Sacl hColaosls Sifuicbactliaosnsification": "Private School",
+    "Modified Curricural Offering Classification": "Complete JHS"
+  }
+]

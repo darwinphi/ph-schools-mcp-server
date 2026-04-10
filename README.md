@@ -1,39 +1,10 @@
 # PH Schools MCP Server
 
-A standalone MCP server (stdio) that exposes tools for querying the Philippine schools dataset.
+Local `stdio` MCP server for querying and analyzing the Philippine schools masterlist dataset.
 
-## Dataset
+## What This Server Provides
 
-By default, the server reads `./data.json`.
-
-### Sync from Canonical GitHub Repo
-
-The server can sync the latest dataset from your canonical repo:
-
-```bash
-npm run sync-data
-```
-
-Defaults:
-
-- Source URL: `https://raw.githubusercontent.com/darwinphi/ph-schools-dataset/main/schools_masterlist_2020_2021.json`
-- Output file: `./data.json`
-
-Optional overrides:
-
-```bash
-PH_SCHOOLS_DATA_URL="https://raw.githubusercontent.com/darwinphi/ph-schools-dataset/main/schools_masterlist_2020_2021.json" \
-PH_SCHOOLS_DATA_PATH="/absolute/path/to/data.json" \
-npm run sync-data
-```
-
-You can also set only runtime dataset path when starting the server:
-
-```bash
-PH_SCHOOLS_DATA_PATH=/absolute/path/to/schools.json npm start
-```
-
-## Tools
+Tools:
 
 1. `search_schools`
 2. `get_school_by_beis_id`
@@ -41,77 +12,125 @@ PH_SCHOOLS_DATA_PATH=/absolute/path/to/schools.json npm start
 4. `list_divisions`
 5. `dataset_stats`
 
-## Run
+## Install and Run
 
 ```bash
 npm install
+npm run sync-data
 npm start
 ```
 
-## Quick Local Check
+### CLI (published package)
 
 ```bash
-npm test
+# Start MCP server over stdio
+npx -y @darwinphi/ph-schools-mcp-server
+
+# Sync canonical dataset once to a chosen path
+npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
 ```
 
-## MCP Client Config Example
+## Dataset Configuration
 
-Use this command in your MCP client config:
+By default, sync uses pinned canonical tag `v1.0.0`:
+
+`https://raw.githubusercontent.com/darwinphi/ph-schools-dataset/v1.0.0/schools_masterlist_2020_2021.json`
+
+Runtime env vars:
+
+- `PH_SCHOOLS_DATA_PATH`: local JSON file path used by MCP server
+- `PH_SCHOOLS_DATA_URL`: override download URL for `sync-data`
+- `PH_SCHOOLS_DATA_TAG`: canonical tag for `sync-data` when URL is not provided
+
+## VS Code MCP Config (Copy/Paste)
+
+Run sync once first:
+
+```bash
+npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
+```
+
+Then set `.vscode/mcp.json`:
 
 ```json
 {
-  "mcpServers": {
-    "ph-schools": {
-      "command": "node",
-      "args": ["/Users/dar.manalo/Code/ph-schools-mcp-server/src/server.js"]
+  "servers": {
+    "phSchools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@darwinphi/ph-schools-mcp-server"],
+      "env": {
+        "PH_SCHOOLS_DATA_PATH": "/Users/your-user/.ph-schools/data.json"
+      }
     }
   }
 }
 ```
 
+## Claude Desktop Config (Copy/Paste)
+
+Run sync once first:
+
+```bash
+npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
+```
+
+Then update Claude config:
+
+```json
+{
+  "mcpServers": {
+    "ph-schools": {
+      "command": "npx",
+      "args": ["-y", "@darwinphi/ph-schools-mcp-server"],
+      "env": {
+        "PH_SCHOOLS_DATA_PATH": "/Users/your-user/.ph-schools/data.json"
+      }
+    }
+  }
+}
+```
+
+Typical macOS config file:
+
+`~/Library/Application Support/Claude/claude_desktop_config.json`
+
+## Test Commands
+
+```bash
+npm test
+npm run test:package
+```
+
 ## Example Prompts
 
-Use these in VS Code Copilot Chat (or any MCP client chat) after connecting this server.
-
-### General
-
-- `List all available tools in the phSchools MCP server.`
 - `Run dataset_stats and summarize key insights.`
-- `Show sector breakdown (Public vs Private).`
-- `Which regions have the highest school counts?`
-
-### Region and Division Queries
-
-- `Run list_regions and return all regions alphabetically.`
 - `List all divisions in Region I using list_divisions.`
-- `Compare number of divisions between Region I and Region III.`
-
-### School Search
-
-- `Search schools with query "Central School".`
-- `Find schools matching "National High School".`
 - `Search schools in region "Region I" and division "Ilocos Norte".`
-- `Search schools in municipality "BACARRA".`
-- `Search schools in barangay "LIBTONG".`
-- `Search schools with sector "Public" in region "Region I" limit 50.`
-
-### School Level Keywords
-
-- `Search schools with query "Elementary".`
-- `Search schools with query "High School".`
-- `Search schools with query "College".`
-
-Note: level terms are currently keyword-based via `query` and not a dedicated `school_level` filter.
-
-### BEIS Lookup
-
 - `Get school by BEIS ID 100001 using get_school_by_beis_id.`
-- `Lookup BEIS ID 100002 and show full record.`
-- `Check if BEIS ID 999999 exists.`
+- `Search schools with query "High School".`
 
-### Analysis
+## Publishing and Release Flow
 
-- `Find top 10 municipalities with the most schools.`
-- `Find top 10 divisions with the most schools.`
-- `Compare Public vs Private counts per region.`
-- `Identify possible duplicate school names across different divisions.`
+Manual release flow (v1):
+
+1. Update pinned dataset tag in `src/constants.js`.
+2. Update versions in `package.json` and `server.json`.
+3. Run:
+
+```bash
+npm ci
+npm test
+npm run test:package
+```
+
+4. Trigger GitHub Actions workflow `Release MCP Server` with matching `version` and `dataset_tag`.
+5. Workflow publishes npm package, then publishes MCP Registry metadata.
+
+For metadata-only updates, use workflow `Publish MCP Registry Metadata`.
+
+## License and Data Provenance
+
+- Code license: ISC ([LICENSE](./LICENSE)).
+- Dataset source: `darwinphi/ph-schools-dataset` (canonical repository backed by gov.ph source data).
+- Use of dataset remains subject to source terms and applicable policies.
