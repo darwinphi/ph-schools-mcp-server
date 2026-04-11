@@ -241,3 +241,5 @@ For metadata-only updates, use workflow `Publish MCP Registry Metadata`.
 - Code license: ISC ([LICENSE](./LICENSE)).
 - Dataset source: `darwinphi/ph-schools-dataset` (canonical repository backed by gov.ph source data).
 - Use of dataset remains subject to source terms and applicable policies.
+
+<!-- ruleset-test: temporary PR to validate required checks -->
