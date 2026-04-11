@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-04-11
+
+### Changed
+
+- Pinned canonical dataset tag from `v1.0.0` to `v1.0.1`.
+- Refreshed bundled `data.json` from canonical tag `v1.0.1`.
+
 ## [1.0.2] - 2026-04-10
 
 ### Added

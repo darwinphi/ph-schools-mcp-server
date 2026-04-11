@@ -22,7 +22,7 @@ function printHelp() {
     '  --version, -v      Show package version',
     '',
     'sync-data options:',
-    '  --tag <tag>        Canonical dataset tag (default: v1.0.0)',
+    `  --tag <tag>        Canonical dataset tag (default: ${DEFAULT_DATASET_TAG})`,
     '  --url <url>        Override dataset URL',
     '  --output <path>    Output file path (default: ./data.json)',
     '  --timeout-ms <n>   Download timeout in milliseconds',

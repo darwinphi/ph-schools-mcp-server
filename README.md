@@ -56,7 +56,7 @@ Use `npx` from a terminal when you need one-off CLI actions without cloning or d
 Use it for:
 
 1. Sanity check that the published package runs: `npx -y @darwinphi/ph-schools-mcp-server --help`
-2. Manual dataset download/update: `npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"`
+2. Manual dataset download/update: `npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.1 --output "$HOME/.ph-schools/data.json"`
 3. Manual debug startup outside client-managed MCP lifecycle: `npx -y @darwinphi/ph-schools-mcp-server`
 
 Do not use `npx` start as a replacement for VS Code/Claude MCP config. In normal usage, let the MCP client manage server startup from its config.
@@ -88,14 +88,14 @@ If your VS Code/Claude MCP config is already working, you usually do not need to
 npx -y @darwinphi/ph-schools-mcp-server
 
 # Sync canonical dataset once to a chosen path
-npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
+npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.1 --output "$HOME/.ph-schools/data.json"
 ```
 
 ### Quick Verify
 
 ```bash
 npx -y @darwinphi/ph-schools-mcp-server --help
-npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.0 --output "$HOME/.ph-schools/data.json"
+npx -y @darwinphi/ph-schools-mcp-server sync-data --tag v1.0.1 --output "$HOME/.ph-schools/data.json"
 ```
 
 ## Dataset Configuration
@@ -105,9 +105,9 @@ This server is hybrid by default:
 - If local dataset file exists, it uses that file immediately.
 - If local dataset file is missing, it auto-downloads from the canonical dataset URL and caches locally.
 
-Default canonical URL (pinned tag `v1.0.0`):
+Default canonical URL (pinned tag `v1.0.1`):
 
-`https://raw.githubusercontent.com/darwinphi/ph-schools-dataset/v1.0.0/schools_masterlist_2020_2021.json`
+`https://raw.githubusercontent.com/darwinphi/ph-schools-dataset/v1.0.1/schools_masterlist_2020_2021.json`
 
 Runtime env vars:
 

@@ -4,7 +4,7 @@ const PACKAGE_NAME = '@darwinphi/ph-schools-mcp-server';
 const MCP_NAME = 'io.github.darwinphi/ph-schools';
 
 const CANONICAL_DATASET_REPO = 'darwinphi/ph-schools-dataset';
-const DEFAULT_DATASET_TAG = 'v1.0.0';
+const DEFAULT_DATASET_TAG = 'v1.0.1';
 const DEFAULT_DATASET_FILE = 'schools_masterlist_2020_2021.json';
 
 const DEFAULT_LOCAL_DATA_FILE = 'data.json';

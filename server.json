@@ -3,7 +3,7 @@
   "name": "io.github.darwinphi/ph-schools",
   "title": "PH Schools MCP Server",
   "description": "Local stdio MCP server for searching and analyzing the Philippine schools masterlist dataset.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "repository": {
     "url": "https://github.com/darwinphi/ph-schools-mcp-server",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "npm",
       "identifier": "@darwinphi/ph-schools-mcp-server",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "transport": {
         "type": "stdio"
       },
